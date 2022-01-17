@@ -1,3 +1,35 @@
-body{
-    background-color: whitesmoke;
+body {
+  background-color: whitesmoke;
+}
+
+#board-area {
+  margin-top: 3rem;
+}
+
+.row-element {
+  display: flex;
+  flex-direction: row;
+}
+
+.cell-element {
+  min-width: 2rem;
+  max-width: 2rem;
+  min-height: 2rem;
+  max-height: 2rem;
+  border: 3px solid;
+}
+
+.open-cell {
+  background-color: white;
+}
+
+.closed-cell {
+  background-color: black;
+}
+
+.start-element {
+  background-color: darkgoldenrod;
+}
+.target-element {
+  background-color: greenyellow;
 }
