@@ -49,7 +49,7 @@ class Board{
     displayBoard = () => {
         let c = 0
         this.boardType.forEach(row => {
-            const rowElement = this.#createCellElement()
+            const rowElement = this.#createRowElement()
             const boardParentElement = document.getElementById
             ("board-area")
 
