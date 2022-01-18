@@ -6,10 +6,6 @@ const main = () => {
     const domManager = new DOMManager()
     const config = domManager.getConfig()
 
-    
-
-
-
     const board = new Board(config)
     board.displayBoard()
 

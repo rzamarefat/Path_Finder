@@ -1,8 +1,8 @@
 class DOMManager{
     constructor(){
         this.typeOfBoard = "A"
-        this.starPoint = (4,4)
-        this.targetPoint = (15, 15)
+        this.startPoint = [0,0]
+        this.targetPoint = [15, 15]
         
     }
 
@@ -11,8 +11,8 @@ class DOMManager{
 
         return {
             typeOfBoard: this.typeOfBoard, 
-            starPoint: this.starPoint,
-            targetPoint: this.endPoint 
+            startPoint: this.startPoint,
+            targetPoint: this.targetPoint 
         }
     }
 }
