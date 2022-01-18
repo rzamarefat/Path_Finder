@@ -4,3 +4,6 @@
 * BFS 
 * DFS 
 * A* 
+* Dijikstra
+* Uniform Cost Search
+* Depth-Limited Search
