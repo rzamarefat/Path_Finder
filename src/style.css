@@ -3,7 +3,7 @@ body {
 }
 
 #board-area {
-  margin-top: 3rem;
+  
 }
 
 .row-element {
@@ -28,8 +28,8 @@ body {
 }
 
 .start-element {
-  background-color: darkgoldenrod;
+  background-color: darkgoldenrod !important;
 }
 .target-element {
-  background-color: greenyellow;
+  background-color: greenyellow !important;
 }

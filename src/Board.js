@@ -38,6 +38,7 @@ class Board{
 
     #createStartPoint = () =>{
         const cell = document.createElement("div")
+        cell.classList.add("cell-element")
         cell.classList.add("start-element")
 
         return cell
@@ -46,9 +47,32 @@ class Board{
 
     #createTargetPoint = () =>{
         const cell = document.createElement("div")
+        cell.classList.add("cell-element")
         cell.classList.add("target-element")
 
         return cell
+    }
+
+    getCells = () => {
+        const closedCells = []
+        const openCells = []
+
+        this.boardType.map((row, rowIndex) => {
+            row.map((col, colIndex) => {
+                if (col ===  0){
+                    openCells.push([rowIndex, colIndex])
+                }else{
+                    closedCells.push([rowIndex, colIndex])
+                }
+            })
+        })
+
+
+        return {
+            openCells: openCells,
+            closedCells: closedCells
+        }
+
     }
 
 
@@ -59,13 +83,11 @@ class Board{
             const rowElement = this.#createRowElement()
             const boardParentElement = document.getElementById("board-area")
 
-            row.map(col => {
-                
-                if (index === this.config["startPoint"][0] && col === this.config["startPoint"][1]){
+            row.map((col, col_index) => {
+                if (index === this.config["startPoint"][0] && col_index === this.config["startPoint"][1]){
                     const cellElemenet = this.#createStartPoint()
                     rowElement.appendChild(cellElemenet)
-
-                }else if (index === this.config["targetPoint"][0] && col === this.config["targetPoint"][1]){
+                }else if (index === this.config["targetPoint"][0] && col_index === this.config["targetPoint"][1]){
                     const cellElemenet = this.#createTargetPoint()
                     rowElement.appendChild(cellElemenet)
                 }else{
@@ -79,12 +101,9 @@ class Board{
                 }
 
             })
+
             boardParentElement.appendChild(rowElement)
         })
-
-
-        
-
     }
 }
 
