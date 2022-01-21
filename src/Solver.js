@@ -10,48 +10,61 @@ class Solver{
         this.graph = this.#defineGraph()
     }
 
-    #defineGraph = () =>  {
-        let modifiedNetworks = []
+    #getNeighboursForOneCell = (cell) =>{
 
-        this.openCells.forEach(cell => {
-            let neighbours = [
+        let neighbours = [
+            [cell[0], cell[1]+1],
+            [cell[0], cell[1]-1],
+            [cell[0]+1, cell[1]],
+            [cell[0]-1, cell[1]],
+        ]
+        
+        if(this.movementStyle === "8"){
+            neighbours = [
                 [cell[0], cell[1]+1],
                 [cell[0], cell[1]-1],
                 [cell[0]+1, cell[1]],
                 [cell[0]-1, cell[1]],
-            ] 
-            
-            if(this.movementStyle === "8"){
-                neighbours = [
-                    [cell[0], cell[1]+1],
-                    [cell[0], cell[1]-1],
-                    [cell[0]+1, cell[1]],
-                    [cell[0]-1, cell[1]],
-    
-                    [cell[0]+1, cell[1]+1],
-                    [cell[0]-1, cell[1]-1],
-                    [cell[0]-1, cell[1]+1],
-                    [cell[0]+1, cell[1]-1],
-                ]
-            }
 
-            neighbours.forEach(n => {
-                this.closedCells.forEach(c => {
-                    if (!((c[0] == n[0] && c[1] == c[1]))||!(c[0] < 0 || c[1] < 0 || c[0] < this.dimensionOfBoard || c[0] < this.dimensionOfBoard[1])){
-          
-                        modifiedNetworks.push(n)    
-                    }
-                })
-            })  
+                [cell[0]+1, cell[1]+1],
+                [cell[0]-1, cell[1]-1],
+                [cell[0]-1, cell[1]+1],
+                [cell[0]+1, cell[1]-1],
+            ]
+        }
+        let filtered_neighbours = []
+        this.closedCells.forEach( closedCell => {
+            neighbours.forEach(neighbour =>{
+                if (!(neighbour[0] === closedCell[0] && neighbour[1] === closedCell[1])){
+                    filtered_neighbours.push(neighbour)
+                }
+            })
         })
-        return modifiedNetworks
+        filtered_neighbours = [... new Set(filtered_neighbours)]
+        console.log(filtered_neighbours)
+        // filtered_neighbours = filtered_neighbours.filter(neighbour =>{
+        //     return (neighbour[0] >=0) && (neighbour[1] >= 0) && (neighbour[0] <= this.dimensionOfBoard[0]) && (neighbour[1] <= this.dimensionOfBoard[0])
+        // })
+
+        
+
+        return filtered_neighbours
+    }
+
+    #defineGraph = () =>  {
+        let graph = {}
+
+        this.openCells.forEach(cell => {
+            graph[cell] = this.#getNeighboursForOneCell(cell)
+        })
+        return graph
     }
 
     #DFSSolver = ()=> {
         const stack = [this.startPoint]
         
         
-        
+        console.log(this.closedCells)
         console.log(this.graph)
 
         
