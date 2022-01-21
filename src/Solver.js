@@ -32,24 +32,45 @@ class Solver{
                 [cell[0]+1, cell[1]-1],
             ]
         }
-        let filtered_neighbours = []
-        this.closedCells.forEach( closedCell => {
-            neighbours.forEach(neighbour =>{
-                if (!(neighbour[0] === closedCell[0] && neighbour[1] === closedCell[1])){
-                    filtered_neighbours.push(neighbour)
-                }
-            })
-        })
-        filtered_neighbours = [... new Set(filtered_neighbours)]
-        console.log(filtered_neighbours)
-        // filtered_neighbours = filtered_neighbours.filter(neighbour =>{
-        //     return (neighbour[0] >=0) && (neighbour[1] >= 0) && (neighbour[0] <= this.dimensionOfBoard[0]) && (neighbour[1] <= this.dimensionOfBoard[0])
-        // })
-
         
+        let filtered_neighbours = []
+        neighbours.forEach(n =>{
+            if (!(this.#arrInArr(this.closedCells, n))){
+                filtered_neighbours.push(n)
+            }
+        })
+
+        filtered_neighbours = [... new Set(filtered_neighbours)]
+
+        filtered_neighbours = filtered_neighbours.filter(neighbour =>{
+            return (neighbour[0] >=0) && (neighbour[1] >= 0) && (neighbour[0] <= this.dimensionOfBoard[0]) && (neighbour[1] <= this.dimensionOfBoard[0])
+        })
+
+
 
         return filtered_neighbours
     }
+
+
+    #arrInArr = (referenceArr, targetArr) => {
+        for( let i = 0; i < referenceArr.length; i++ ){
+          // don't even starting to compare if length are not equal
+          if( referenceArr[i].length != targetArr.length ){ continue }
+          
+          let match = 0; // To count each exact match
+          for( let j = 0; j < targetArr.length; j++ ){
+            if( referenceArr[i][j] === targetArr[j] ){
+              match++;
+            } else {
+              break;
+            }
+          }
+          if( match === targetArr.length ){ // If each element exactly matched
+            return true; 
+          }
+        }
+        return false;
+      }
 
     #defineGraph = () =>  {
         let graph = {}
@@ -61,13 +82,18 @@ class Solver{
     }
 
     #DFSSolver = ()=> {
-        const stack = [this.startPoint]
+        const stack = [this.startPoint];
+        // const current = stack.pop()
         
-        
-        console.log(this.closedCells)
         console.log(this.graph)
-
-        
+        // while (stack.length > 0) {
+        //     const current = stack.pop()
+        //     console.log(current)
+        //     for(let neighbour of this.graph[current]){
+        //         stack.push(neighbour)
+        //     }
+            
+        // }
     }
 
     #BFSSolver = () => {
